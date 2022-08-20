@@ -44,6 +44,21 @@
         :columns="tableColumns"
         :rows="skydiveDataComplete"
       >
+        <template v-slot:body-cell-remove="props">
+          <q-td :props="props">
+            <q-btn
+              @click="removeJumpByJumpNumber(props.row.jumpNumber)"
+              color="red"
+              round
+              dense
+            >
+              <q-icon
+                name="close"
+                size="small"
+                color="white"/>
+            </q-btn>
+          </q-td>
+        </template>
         <template v-slot:body-cell-totalTime="props">
           <q-td :props="props">
             {{ formatTime(props.row.totalTime) }}
@@ -104,6 +119,10 @@ const skydiveData: Ref<Array<Skydive>> = ref([])
 
 // Table Config
 const tableColumns = [
+  {
+    name: 'remove',
+    label: 'Delete',
+  },
   {
     name: 'jumpNumber',
     label: 'Jump Number',
@@ -197,5 +216,13 @@ const formatTime = (seconds: number): string => {
   const remainingSeconds = seconds % 3600 % 60
 
   return `${padWithZero(hours)}h : ${padWithZero(minutes)}m : ${padWithZero(remainingSeconds)}s`
+}
+
+/**
+ * Removes a jump from skydiveData based on the number
+ * @param jumpNumber - jump number to remove
+ */
+const removeJumpByJumpNumber = (jumpNumber: number) => {
+  skydiveData.value = skydiveData.value.filter((jump) => jump.jumpNumber !== jumpNumber)
 }
 </script>

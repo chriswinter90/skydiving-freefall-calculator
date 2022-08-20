@@ -2,37 +2,43 @@
   <q-dialog
     :model-value="props.show"
   >
-    <q-card>
-      <q-card-section>
-        <h6>Add Skydive</h6>
-      </q-card-section>
-      <q-card-section>
-        <q-input
-          label="Jump Number"
-          v-model="jumpNumber"
-          mask="#####"
-        ></q-input>
-        <q-input
-          label="Exit Altitude (K)"
-          v-model="exitAltitude"
-          mask="##.###"
-        ></q-input>
-        <q-input
-          label="Opening Altitude (K)"
-          v-model="openingAltitude"
-          mask="##.###"
-        ></q-input>
-      </q-card-section>
-      <q-card-actions align="right">
-        <q-btn
-          @click="addSkydive"
-        >
-          <q-icon
-            name="add"
-            color="green"
-          ></q-icon>
-        </q-btn>
-      </q-card-actions>
+    <q-card class="q-mx-lg" style="width: 300px">
+      <q-form @submit.prevent.stop="addSkydive">
+        <q-card-section>
+          <h6 class="q-my-md">Add Skydive</h6>
+        </q-card-section>
+        <q-card-section>
+          <q-input
+            label="Jump Number"
+            v-model.number="jumpNumber"
+            :rules="[isANumberValidation, isAWholeNumberValidation]"
+            mask="#####"
+          ></q-input>
+          <q-input
+            label="Exit Altitude (K)"
+            v-model.number="exitAltitude"
+            :rules="[isANumberValidation]"
+            mask="##.###"
+          ></q-input>
+          <q-input
+            label="Opening Altitude (K)"
+            v-model.number="openingAltitude"
+            :rules="[isANumberValidation]"
+            mask="##.###"
+          ></q-input>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn
+            color="primary"
+            type="submit"
+          >
+            <q-icon
+              name="add"
+              color="positive"
+            ></q-icon>
+          </q-btn>
+        </q-card-actions>
+      </q-form>
     </q-card>
   </q-dialog>
 </template>
@@ -50,6 +56,9 @@ const props = withDefaults(defineProps<Props>(), {
   show: false,
   currentNumberOfJumps: 0,
 });
+
+const isANumberValidation = (val: any) => typeof val === 'number' || 'The value must be a number'
+const isAWholeNumberValidation = (val: any) => val % 1 === 0 || 'The value must be a whole number'
 
 const jumpNumber = ref(props.currentNumberOfJumps + 1)
 const exitAltitude = ref(13.5)
