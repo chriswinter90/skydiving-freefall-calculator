@@ -16,15 +16,17 @@
           ></q-input>
           <q-input
             label="Exit Altitude (K)"
+            type="number"
             v-model.number="exitAltitude"
+            :step="0.1"
             :rules="[isANumberValidation]"
-            mask="##.###"
           ></q-input>
           <q-input
             label="Opening Altitude (K)"
+            type="number"
             v-model.number="openingAltitude"
+            :step="0.1"
             :rules="[isANumberValidation]"
-            mask="##.###"
           ></q-input>
         </q-card-section>
         <q-card-actions align="right">
@@ -66,8 +68,7 @@ const openingAltitude = ref(0)
 
 const emit = defineEmits<
   {
-    (e: 'add-skydive', skydive: Skydive): void,
-    (e: 'add-skydive'): void,
+    (e: 'add-skydive', skydive: Skydive): Skydive,
     (e: 'close-add-skydive'): void,
   }
 >()

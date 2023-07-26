@@ -94,6 +94,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
 
     'prefer-promise-reject-errors': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
 
     quotes: ['warn', 'single', { avoidEscape: true }],
 
