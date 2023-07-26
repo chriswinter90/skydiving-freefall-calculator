@@ -1,6 +1,6 @@
 {
   "name": "skydiving-freefall-calculator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Skydiving Freefall Calculator",
   "productName": "Skydiving Freefall Calculator",
   "author": "chriswinter90 <46911483+chriswinter90@users.noreply.github.com>",
@@ -9,6 +9,7 @@
     "lint": "eslint --ext .js,.ts,.vue ./",
     "build": "quasar build",
     "dev": "quasar dev",
+    "serve": "npm run build && node server/server.js",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {

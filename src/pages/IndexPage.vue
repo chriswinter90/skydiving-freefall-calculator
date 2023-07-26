@@ -9,6 +9,7 @@
           <li>Enter in your exit and opening altitude.</li>
           <li>Press the + button.</li>
           <li>When you're done, copy the Freefall Delay and Total Time to your logbook for your jumps.</li>
+          <li>NOTE: Calculations are based on 10 seconds for the first 1,000 feet and 5 seconds per 1,000 feet thereafter.</li>
         </ul>
       </div>
       <div class="q-my-lg flex row justify-around">
@@ -90,6 +91,7 @@
 import { computed, ComputedRef, Ref, ref } from 'vue';
 import ModalAddSkydive from 'components/ModalAddSkydive.vue';
 import { Skydive, SkydiveComplete } from 'src/types/SkydiveTypes';
+import { QTableColumn } from 'quasar';
 
 const FIRST_THOUSAND_FREEFALL_SECONDS = 10
 const TERMINAL_FALLRATE_PER_THOUSAND = 5
@@ -118,10 +120,11 @@ const showAddSkydiveModal = ref(false)
 const skydiveData: Ref<Array<Skydive>> = ref([])
 
 // Table Config
-const tableColumns = [
+const tableColumns: QTableColumn[] = [
   {
     name: 'remove',
     label: 'Delete',
+    field: () => undefined,
   },
   {
     name: 'jumpNumber',
